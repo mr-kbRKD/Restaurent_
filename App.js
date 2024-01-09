@@ -16,7 +16,7 @@ const Title = () => (
 
 // Functional compo
 
-const Hi = () =>
+const Header = () =>
 (
         <div className="header">
         <Title />
@@ -31,13 +31,229 @@ const Hi = () =>
         </div>
         </div>
 );
+
+
+{/* making hard-corded card dynamic */}
+
+{/* const Khaja = {
+    name : "Khaja",
+    image : "https://food.iskcondesiretree.com/wp-content/uploads/2011/09/Khaja1.jpg",
+    cusines : ["Sweets", "Indian"],
+    rating : 4.8
+} */}
+
+const restaurentList = 
+    [
+        {
+        name: 'Poutine Palace',
+          slug: 'poutine-palace',
+          images: {
+            thumbnail:
+              'node_modules/place-my-order-assets/images/4-thumbnail.jpg',
+            owner: 'node_modules/place-my-order-assets/images/3-owner.jpg',
+            banner: 'node_modules/place-my-order-assets/images/2-banner.jpg',
+          },
+          menu: {
+            lunch: [
+              {
+                name: 'Crab Pancakes with Sorrel Syrup',
+                price: 35.99,
+              },
+              {
+                name: 'Steamed Mussels',
+                price: 21.99,
+              },
+              {
+                name: 'Spinach Fennel Watercress Ravioli',
+                price: 35.99,
+              },
+            ],
+            dinner: [
+              {
+                name: 'Gunthorp Chicken',
+                price: 21.99,
+              },
+              {
+                name: 'Herring in Lavender Dill Reduction',
+                price: 45.99,
+              },
+              {
+                name: 'Chicken with Tomato Carrot Chutney Sauce',
+                price: 45.99,
+              },
+            ],
+          },
+          address: {
+            street: '230 W Kinzie Street',
+            city: 'Green Bay',
+            state: 'WI',
+            zip: '53205',
+          },
+          _id: '3ZOZyTY1LH26LnVw',
+        },
+        {
+          name: 'Cheese Curd City',
+          slug: 'cheese-curd-city',
+          images: {
+            thumbnail:
+              'node_modules/place-my-order-assets/images/2-thumbnail.jpg',
+            owner: 'node_modules/place-my-order-assets/images/3-owner.jpg',
+            banner: 'node_modules/place-my-order-assets/images/2-banner.jpg',
+          },
+          menu: {
+            lunch: [
+              {
+                name: 'Ricotta Gnocchi',
+                price: 15.99,
+              },
+              {
+                name: 'Gunthorp Chicken',
+                price: 21.99,
+              },
+              {
+                name: 'Garlic Fries',
+                price: 15.99,
+              },
+            ],
+            dinner: [
+              {
+                name: 'Herring in Lavender Dill Reduction',
+                price: 45.99,
+              },
+              {
+                name: 'Truffle Noodles',
+                price: 14.99,
+              },
+              {
+                name: 'Charred Octopus',
+                price: 25.99,
+              },
+            ],
+          },
+          address: {
+            street: '2451 W Washburne Ave',
+            city: 'Green Bay',
+            state: 'WI',
+            zip: '53295',
+          },
+          _id: 'Ar0qBJHxM3ecOhcr',
+        },
+        {
+          name: 'Mera restaurent ',
+          slug: 'cheese-curd-city',
+          images: {
+            thumbnail:
+              'node_modules/place-my-order-assets/images/2-thumbnail.jpg',
+            owner: 'node_modules/place-my-order-assets/images/3-owner.jpg',
+            banner: 'node_modules/place-my-order-assets/images/2-banner.jpg',
+          },
+          menu: {
+            lunch: [
+              {
+                name: 'Ricotta Gnocchi',
+                price: 15.99,
+              },
+              {
+                name: 'Gunthorp Chicken',
+                price: 21.99,
+              },
+              {
+                name: 'Garlic Fries',
+                price: 15.99,
+              },
+            ],
+            dinner: [
+              {
+                name: 'Herring in Lavender Dill Reduction',
+                price: 45.99,
+              },
+              {
+                name: 'Truffle Noodles',
+                price: 14.99,
+              },
+              {
+                name: 'Charred Octopus',
+                price: 25.99,
+              },
+            ],
+          },
+          address: {
+            street: '2451 W Washburne Ave',
+            city: 'Green Bay',
+            state: 'WI',
+            zip: '53295',
+          },
+          _id: 'Ar0qBJHxM3ecOhcr',
+        },
+    ]
+
+
+const RestaurentCard = ({name, slug}) =>{
+  {/* console.log(props); */}
+
+  {/* const {name, slug} = restaurent; */}
+  
+  
+    return (
+        <>
+        <div className="card">
+            <img src="https://food.iskcondesiretree.com/wp-content/uploads/2011/09/Khaja1.jpg" alt="" />
+            {/* when using props with it */}
+            <h2>{name}</h2>
+            {/* <h3>{restaurentList[0]?.menu?.lunch[0]?.name}</h3>
+            <h4>{restaurent.data?.slug} stars</h4> */}
+            </div>  
+        </>
+    )
+} 
+
+
+const Body = () =>{
+    return (
+        <>
+        <div className="restaurent-list">
+           <RestaurentCard {...restaurentList[0].data} />
+           {/* <RestaurentCard restaurent = {restaurentList[1]}/> */}
+           {/* <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard />
+           <RestaurentCard /> */}
+        </div>
+        </>
+    )
+}
+
+
+
+
+
+const Footer = () =>{
+    return (
+        <div>
+            <h4>Footer</h4>
+        </div>
+    )
+}
     
 
 const AppLayout = () =>{
 
-    return {};
+    return (
+        <>
+        <>
+            <Header />
+            <Body />
+            <Footer />
+
+        </>
+        </>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(heading);
-root.render(<Hi />);
+root.render(<AppLayout />);
