@@ -1,34 +1,39 @@
 import React from 'react'
 
-const Title = () => {
-  return (
-    
-    <a href="/">
-        <img className='logo' src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" srcset="" />
-    </a>
-  )
-}
+import { useState } from "react";
 
+const loggedInUser = () => {
+  // API call to check authentication
+  return false;
+};
 
-// Functional compo
-
-const Header = () =>
-(
-        <div className="header">
-        <Title />
-        <div className="nav-items">
-        <ul>
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
-            <li>Cart</li>
-        </ul>
-
-        </div>
-        </div>
+const Title = () => (
+  <a href="/">
+     <img className='logo' src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" srcset="" />
+  </a>
 );
 
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-export default Header
+  return (
+    <div className="header">
+      <Title />
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+      {isLoggedIn ? (
+        <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+      ) : (
+        <button onClick={() => setIsLoggedIn(true)}>Login</button>
+      )}
+    </div>
+  );
+};
 
- 
+export default Header;

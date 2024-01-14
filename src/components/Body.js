@@ -1,59 +1,66 @@
-import { restaurentList } from "../../config"
-import RestaurentCard from "./ResturentCard"
-import { useState } from "react";
+// Import necessary dependencies and components
+import React, { useState, useEffect } from "react";
+import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
 
+// The provided hardcoded data
+import { restaurantList } from "../config";
 
-
-function filterData(searchTxt, restaurants) {
-  const filteredData = restaurants.filter((restaurant) => restaurant.name.toLowerCase().includes(searchTxt.toLowerCase()))
+// Function to filter data based on search text
+function filterData(searchText, restaurants) {
+  const filteredData = restaurants.filter((restaurant) =>
+    restaurant?.data?.name?.toLowerCase()?.includes(searchText.toLowerCase())
+  );
 
   return filteredData;
 }
 
-
-
-
+// Body component
 const Body = () => {
-  // let searchTxt = "Balram";
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
-  const [restaurants, setrestaurants] = useState(restaurentList);
-  const [searchTxt, setsearchTxt] = useState("");
+  // useEffect to simulate API call and set initial data
+  useEffect(() => {
+    setAllRestaurants(restaurantList);
+    setFilteredRestaurants(restaurantList);
+  }, []);
+
+  // Event handler for search button click
+  const handleSearch = () => {
+    const data = filterData(searchText, allRestaurants);
+    setFilteredRestaurants(data);
+  };
 
   return (
     <>
-
+      {/* Search input and button */}
       <div className="search-container">
-        <input type="text"
+        <input
+          type="text"
           className="search-input"
-          placeholder="search"
-          value={searchTxt}
-          onChange={(e) => {
-            setsearchTxt(e.target.value);
-          }}
+          placeholder="Search"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
         />
-        <button className="search-btn" onClick={() => {
-          // need to filter the data
-          const data = filterData(searchTxt, restaurants);
-          setrestaurants(data);
-        }}
-        > Search it</button>
+        <button className="search-btn" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
-      <div className="restaurent-list">
-      {/* manual way */}
-        {/* <RestaurentCard {...restaurentList[0]} />
-        <RestaurentCard {...restaurentList[1]} /> */}
-        {/* <RestaurentCard restaurent = {restaurentList[1]}/> */}
-
-        {/* iterating */}
-        {restaurants.map((restaurant) => {
-          return (
-            <RestaurentCard {...restaurant} />
-          );
-        })}
+      {/* Render restaurant list */}
+      <div className="restaurant-list">
+        {filteredRestaurants.length === 0 ? (
+          <h1>No Restaurant matches your filter!</h1>
+        ) : (
+          filteredRestaurants.map((restaurant) => (
+            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+          ))
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
