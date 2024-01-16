@@ -1,4 +1,3 @@
-// Import necessary dependencies and components
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
@@ -8,34 +7,58 @@ import { restaurantList } from "../config";
 
 // Function to filter data based on search text
 function filterData(searchText, restaurants) {
-  const filteredData = restaurants.filter((restaurant) =>
-    restaurant?.data?.name?.toLowerCase()?.includes(searchText.toLowerCase())
+  return restaurants.filter((restaurant) =>
+    restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
   );
-
-  return filteredData;
 }
 
-// Body component
 const Body = () => {
-  const [allRestaurants, setAllRestaurants] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [Allrestaurants, setAllRestaurants] = useState([]);
+  const [FilteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // useEffect to simulate API call and set initial data
   useEffect(() => {
-    setAllRestaurants(restaurantList);
-    setFilteredRestaurants(restaurantList);
+    getRestaurants();
   }, []);
+  async function getRestaurants() {
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await data.json();
+      setAllRestaurants(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+          []
+      );
+      setFilteredRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+        []);
+      console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching data. Please try again later.");
+      setLoading(false);
+    }
+  }
+  
+  console.log("render");
+  if (loading) {
+    return <Shimmer />; // You can create a loading component (Shimmer) to show loading state.
+    // setRestaurants()
+  }
 
-  // Event handler for search button click
-  const handleSearch = () => {
-    const data = filterData(searchText, allRestaurants);
-    setFilteredRestaurants(data);
-  };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+
+  if(FilteredRestaurants.length === 0) return <h1>No restaurant matched to your search!! Try Another One.</h1>
+
+
 
   return (
     <>
-      {/* Search input and button */}
       <div className="search-container">
         <input
           type="text"
@@ -44,20 +67,26 @@ const Body = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button className="search-btn" onClick={handleSearch}>
+        <button
+          className="search-btn"
+          onClick={() => {
+            const data = filterData(searchText, Allrestaurants);
+            setFilteredRestaurants(data);
+          }}
+        >
           Search
         </button>
       </div>
-
-      {/* Render restaurant list */}
       <div className="restaurant-list">
-        {filteredRestaurants.length === 0 ? (
-          <h1>No Restaurant matches your filter!</h1>
-        ) : (
-          filteredRestaurants.map((restaurant) => (
-            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-          ))
-        )}
+        {FilteredRestaurants.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant.info.id}
+            name={restaurant.info.name}
+            cuisines={restaurant.info.cuisines}
+            cloudinaryImageId={restaurant.info.cloudinaryImageId}
+            lastMileTravelString={restaurant.info.sla.lastMileTravelString}
+          />
+        ))}
       </div>
     </>
   );
