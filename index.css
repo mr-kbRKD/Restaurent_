@@ -40,3 +40,13 @@ img {
   /* justify-content: center; */
   flex-wrap: wrap;
 }
+
+.shimmer-card{
+  width: 200px;
+  margin: 10px;
+  background: lightgray;
+  height : 200px;
+  margin-top : 40px;
+  display: flex;
+  justify-content: space-between;
+}
