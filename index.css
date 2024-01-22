@@ -50,3 +50,7 @@ img {
   display: flex;
   justify-content: space-between;
 }
+
+.restaurant-img{
+  width: 400px;
+}

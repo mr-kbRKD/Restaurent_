@@ -11,6 +11,7 @@ import Contact from "./components/Contact.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 
 
+
 const AppLayout = () =>{
 
     return (
@@ -19,7 +20,6 @@ const AppLayout = () =>{
             <Header />
             <Outlet />
             <Footer />
-
         </>
         </>
     );
