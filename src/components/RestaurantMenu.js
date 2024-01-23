@@ -4,9 +4,10 @@ import { IMG_CDN_URL } from "../config";
 import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
-  const { id } = useParams();
+  const { resId } = useParams();
   const [restaurant, setRestaurant] = useState(null);
 
+  console.log(useState());
   useEffect(() => {
     getRestaurantInfo();
   }, []);
@@ -25,9 +26,10 @@ const RestaurantMenu = () => {
 
   return (!restaurant) ? <Shimmer /> : (
     <>
-      <h1>Restaurant id: {id}</h1>
+      <h1>Restaurant id: {resId}</h1>
       {restaurant && (
         <div>
+        
         {console.log(restaurant?.cards[1].card?.card?.gridElements.infoWithStyle.restaurants[0].info.id)}
           <h2>{restaurant?.cards[1].card?.card?.gridElements.infoWithStyle.restaurants[0].info.name}</h2>
           <h2>{restaurant?.cards[1].card?.card?.gridElements.infoWithStyle.restaurants[0].info.areaName}</h2>
