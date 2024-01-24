@@ -4,13 +4,9 @@ import Shimmer from "./Shimmer";
 
 // The provided hardcoded data
 import { restaurantList } from "../config";
+import {filterData} from "./Utils/Helper"
 
-// Function to filter data based on search text
-function filterData(searchText, restaurants) {
-  return restaurants.filter((restaurant) =>
-    restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
-  );
-}
+
 
 const Body = () => {
   const [Allrestaurants, setAllRestaurants] = useState([]);
