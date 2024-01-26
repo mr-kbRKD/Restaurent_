@@ -5,6 +5,9 @@ import Shimmer from "./Shimmer";
 // The provided hardcoded data
 import { restaurantList } from "../config";
 import {filterData} from "./Utils/Helper"
+import useOnline from "./Utils/useOnline";
+
+
 
 
 
@@ -14,29 +17,37 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
+  
   useEffect(() => {
     getRestaurants();
   }, []);
+
+  
   async function getRestaurants() {
     try {
       const data = await fetch(
         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-      );
-      const json = await data.json();
-      setAllRestaurants(
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+        );
+        const json = await data.json();
+        setAllRestaurants(
+          json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
           []
-      );
-      setFilteredRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
-        []);
-      console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setLoading(false);
-    } catch (error) {
-      setError("Error fetching data. Please try again later.");
-      setLoading(false);
-    }
-  }
+          );
+          setFilteredRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+            []);
+            console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setLoading(false);
+          } catch (error) {
+            setError("Error fetching data. Please try again later.");
+            setLoading(false);
+          }
+        }
+
+        const isOnline = useOnline();
+        if(!isOnline){
+          return <h1>⚠️⚠️⚠️ You are offline biddu, check internet ⚠️⚠️⚠️</h1>
+        };
   
   console.log("render");
   if (loading) {
@@ -52,6 +63,7 @@ const Body = () => {
   if(FilteredRestaurants.length === 0) return <h1>No restaurant matched to your search!! Try Another One.</h1>
 
 
+ 
 
   return (
     <>
