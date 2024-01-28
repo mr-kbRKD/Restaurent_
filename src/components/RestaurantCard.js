@@ -1,7 +1,7 @@
 // const RestaurentCard = ({ name, slug, menu }) => {
-    
-    //     return (
-        //         <>
+
+//     return (
+//         <>
 //             <div className="card">
 //                 <img src="https://food.iskcondesiretree.com/wp-content/uploads/2011/09/Khaja1.jpg" alt="" />
 //                 {/* when using props with it */}
@@ -11,9 +11,9 @@
 //                     <h3>Menu - Lunch</h3>
 //                     <ul>
 //                         {menu?.lunch?.map((item, index) => (
-    //                             <li key={index}>
-    //                                 {item.name} - ${item.price}
-    //                             </li>
+//                             <li key={index}>
+//                                 {item.name} - ${item.price}
+//                             </li>
 //                         ))}
 //                     </ul>
 //                 </div>
@@ -34,8 +34,8 @@ const RestaurantCard = ({
   lastMileTravelString,
 }) => {
   return (
-    <div className="card">
-      <img src={IMG_CDN_URL + cloudinaryImageId} alt={name}/>
+    <div className="m-2 p-2 w-40 shadow-md">
+      <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} />
       <h2>{name}</h2>
       {cuisines && Array.isArray(cuisines) ? (
         <h3>{cuisines.join(", ")}</h3>

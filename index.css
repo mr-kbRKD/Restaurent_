@@ -1,56 +1,6 @@
-.header {
-  display: flex;
-  /* align-items: center; */
-  justify-content: space-between;
-  margin: 10px;
-  border: 1px solid grey;
-}
+/* index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-.nav-items > ul {
-  list-style-type: none;
-  display: flex;
-}
-.nav-items > ul > li {
-  padding: 10px;
-}
-
-/* make images to take their 100% width as defined(like for restraucard 200px */
-img {
-  width: 100%;
-}
-
-.logo {
-  width: 100px;
-  margin: 2px;
-}
-.card {
-  width: 200px;
-  border: 1px solid black;
-  margin: 10px;
-  padding: 10px;
-}
-
-.card > img {
-  width: 200px;
-}
-
-.restaurant-list {
-  display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
-  flex-wrap: wrap;
-}
-
-.shimmer-card{
-  width: 200px;
-  margin: 10px;
-  background: lightgray;
-  height : 200px;
-  margin-top : 40px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.restaurant-img{
-  width: 400px;
-}
+/* Your custom styles go here */

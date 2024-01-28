@@ -9,7 +9,7 @@ const loggedInUser = () => {
 
 const Title = () => (
   <a href="/">
-    <img className='logo' src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" srcset="" />
+    <img className='h-28' src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" srcset="" />
   </a>
 );
 
@@ -18,33 +18,33 @@ const Header = () => {
   const isOnline = useOnline();
 
   return (
-    <div className="header">
+    <div className="flex justify-between bg-gray-100 shadow-lg">
       <Title />
       <div className="nav-items">
-        <ul>
-          <Link to="/">
-            <li>Home</li>
-          </Link>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
+        <ul className="py-8 flex">
+          <li className="">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="px-4">
+            <Link to="/about">About</Link>
+          </li>
 
-          <li>
+          <li className="px-4">
             <Link to="/contact">Contact</Link>
           </li>
-          <li>Cart</li>
-        <li>
-          <Link to="/instamart">Instamart </Link>
-        </li>
+          <li className="px-4">Cart</li>
+          <li className="px-4">
+            <Link to="/instamart">Instamart </Link>
+          </li>
         </ul>
       </div>
-      <h1>
-        { isOnline ? "✅" : "🔴" }
-      </h1>
+      <div className="mt-6 -ml-16">
+        {isOnline ? "✅" : "🔴"}
+      </div>
       {isLoggedIn ? (
-        <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+        <button className='h-16 mt-5 w-20 bg-slate-600 p-2 text-white rounded-xl -ml-24 mr-12' onClick={() => setIsLoggedIn(false)}>Logout</button>
       ) : (
-        <button onClick={() => setIsLoggedIn(true)}>Login</button>
+        <button className='h-16 mt-5 w-20 bg-slate-600 p-2 text-white rounded-xl -ml-24 mr-12' onClick={() => setIsLoggedIn(true)}>Login</button>
       )}
     </div>
   );
