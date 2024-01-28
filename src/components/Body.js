@@ -11,7 +11,7 @@ import useOnline from "./Utils/useOnline";
 
 
 
-const Body = () => {
+const Body = ({user}) => {
   const [Allrestaurants, setAllRestaurants] = useState([]);
   const [FilteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -93,6 +93,7 @@ const Body = () => {
             cuisines={restaurant.info.cuisines}
             cloudinaryImageId={restaurant.info.cloudinaryImageId}
             lastMileTravelString={restaurant.info.sla.lastMileTravelString}
+            user = {user}
           />
         ))}
       </div>

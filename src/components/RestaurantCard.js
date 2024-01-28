@@ -32,6 +32,7 @@ const RestaurantCard = ({
   cuisines,
   cloudinaryImageId,
   lastMileTravelString,
+  user
 }) => {
   return (
     <div className="m-2 p-2 w-40 shadow-md">
@@ -41,6 +42,8 @@ const RestaurantCard = ({
         <h3>{cuisines.join(", ")}</h3>
       ) : null}
       <h4>{lastMileTravelString} minutes</h4>
+      <h4>{user.name}</h4>
+      <h4>{user.email }</h4>
     </div>
   );
 };
