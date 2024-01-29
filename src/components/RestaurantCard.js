@@ -26,14 +26,18 @@
 
 // new API have to use
 import { IMG_CDN_URL } from "../config";
+import React, { useContext } from "react";
+import UserContext from "./Utils/UserContext";
+
 
 const RestaurantCard = ({
   name,
   cuisines,
   cloudinaryImageId,
   lastMileTravelString,
-  user
 }) => {
+
+  const { user } = useContext(UserContext);
   return (
     <div className="m-2 p-2 w-40 shadow-md">
       <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} />
@@ -41,9 +45,10 @@ const RestaurantCard = ({
       {cuisines && Array.isArray(cuisines) ? (
         <h3>{cuisines.join(", ")}</h3>
       ) : null}
-      <h4>{lastMileTravelString} minutes</h4>
+      <h4>{lastMileTravelString}</h4>
       <h4>{user.name}</h4>
-      <h4>{user.email }</h4>
+      <h4 className="overflow-auto">{user.email}</h4>
+
     </div>
   );
 };

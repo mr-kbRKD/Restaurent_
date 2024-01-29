@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Outlet } from "react-router-dom";
 import ProfileFunction from "./Profile";
 import ProfileClass from "./ProfileClass";
+import UserContext from "./Utils/UserContext";
 
 class About extends Component {
 
@@ -14,6 +15,7 @@ class About extends Component {
 
     }
 
+
     componentDidMount() {
         console.log("Parent - API");
     }
@@ -22,6 +24,9 @@ class About extends Component {
         return (
             <>
                 <h1>This is our about us page of restaurant site. </h1>
+                <UserContext.Consumer>
+                    {({user})=><h3 className="font-bold text-lg p-10">{user.name} - {user.email} </h3>}
+                </UserContext.Consumer>
                 {/* <Outlet />  */}
                 {/* <ProfileClass name= {"First child"} /> */}
                 <ProfileFunction name = {"First Child"} />
