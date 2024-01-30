@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
@@ -6,17 +6,18 @@ import Shimmer from "./Shimmer";
 import { restaurantList } from "../config";
 import { filterData } from "./Utils/Helper"
 import useOnline from "./Utils/useOnline";
+import UserContext from "./Utils/UserContext";
 
 
 
 
-
-const Body = ({user}) => {
+const Body = () => {
   const [Allrestaurants, setAllRestaurants] = useState([]);
   const [FilteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {user, setUser} = useContext(UserContext);
 
 
   useEffect(() => {
@@ -84,6 +85,20 @@ const Body = ({user}) => {
         >
           Search
         </button>
+        <input type="text" value = {user.name} onChange={
+          e => setUser({
+            ...user,
+            name : e.target.value,
+            
+          })
+        } />
+        <input type="text" value = {user.email} onChange={
+          e => setUser({
+            ...user,
+            email : e.target.value,
+            
+          })
+        } />
       </div>
       <div className="flex flex-wrap justify-between">
         {FilteredRestaurants.map((restaurant) => (

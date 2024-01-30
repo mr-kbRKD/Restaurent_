@@ -1,5 +1,5 @@
 
-import React, {lazy, Suspense} from "react";
+import React, {lazy, Suspense, useState} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
@@ -11,7 +11,10 @@ import Contact from "./components/Contact.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 import Profile from "./components/ProfileClass.js"
 import Shimmer from "./components/Shimmer.js";
+import UserContext from "./components/Utils/UserContext.js";
 // import Instamart from "./components/Instamart.js"
+import { Provider } from "react-redux";
+import store from "./components/Utils/store.js";
 
 
 const Instamart = lazy(() => import("./components/Instamart.js"));
@@ -19,16 +22,25 @@ const About = lazy(()=>import("./components/About.js"))
 
 
 
-
 const AppLayout = () =>{
+    const [user, setUser] = useState({
+        name : "Devaki Nandan",
+        email :"Devakinandan@vaikuntha.com",
+    });
 
     return (
         <>
-        <>
+        <Provider store={store}>
+        <UserContext.Provider
+            value = {{
+                user : user,
+                setUser : setUser,
+            }}>
             <Header />
             <Outlet />
             <Footer />
-        </>
+        </UserContext.Provider>
+        </Provider>
         </>
     );
 }
