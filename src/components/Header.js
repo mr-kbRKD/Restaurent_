@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import useOnline from './Utils/useOnline';
 import UserContext from './Utils/UserContext';
+import { useSelector } from 'react-redux';
 const loggedInUser = () => {
   // API call to check authentication
   return false;
@@ -10,7 +11,7 @@ const loggedInUser = () => {
 
 const Title = () => (
   <a href="/">
-    <img className='h-28' src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" srcset="" />
+    <img className='h-28' data-testid = "logo" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Krishna_Logo.png" alt="" />
   </a>
 );
 
@@ -18,9 +19,11 @@ const Title = () => (
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isOnline = useOnline();
-  
-  const {user} = useContext(UserContext);
-  
+
+  const { user } = useContext(UserContext);
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
+
   return (
     <div className="flex justify-between bg-gray-100 shadow-lg">
       <Title />
@@ -36,14 +39,15 @@ const Header = () => {
           <li className="px-4">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="px-4">Cart</li>
+          <li className="px-4" ><Link data-testid ="cart" to="/cart">Cart - {cartItems.length} items</Link>
+          </li>
           <li className="px-4">
             <Link to="/instamart">Instamart </Link>
           </li>
         </ul>
       </div>
-      <span className = "p-8 text-orange-700 font-bold text-lg">{user.name}</span>
-      <div className="mt-6 -ml-16">
+      <span className="p-8 text-orange-700 font-bold text-lg">{user.name}</span>
+      <div className="mt-6 -ml-16" data-testid = "online-status">
         {isOnline ? "✅" : "🔴"}
       </div>
       {isLoggedIn ? (

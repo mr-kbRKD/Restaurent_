@@ -7,6 +7,8 @@ import { restaurantList } from "../config";
 import { filterData } from "./Utils/Helper"
 import useOnline from "./Utils/useOnline";
 import UserContext from "./Utils/UserContext";
+import { addItem } from "./Utils/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -17,7 +19,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
 
   useEffect(() => {
@@ -63,7 +65,11 @@ const Body = () => {
 
   if (FilteredRestaurants.length === 0) return <h1>No restaurant matched to your search!! Try Another One.</h1>
 
+  const dispatch = useDispatch();
 
+  const handleItem = () => {
+    dispatch(addItem("Sita"));
+  };
 
 
   return (
@@ -85,20 +91,25 @@ const Body = () => {
         >
           Search
         </button>
-        <input type="text" value = {user.name} onChange={
+        <input type="text" value={user.name} onChange={
           e => setUser({
             ...user,
-            name : e.target.value,
-            
+            name: e.target.value,
+
           })
         } />
-        <input type="text" value = {user.email} onChange={
+        <input type="text" value={user.email} onChange={
           e => setUser({
             ...user,
-            email : e.target.value,
-            
+            email: e.target.value,
+
           })
         } />
+        <div>
+          <button type="button" className="p-2 m-5 bg-lime-400 hover:border hover: border-cyan-400" onClick={() => handleItem()}>
+            Add Items
+          </button>
+        </div>
       </div>
       <div className="flex flex-wrap justify-between">
         {FilteredRestaurants.map((restaurant) => (
@@ -108,7 +119,8 @@ const Body = () => {
             cuisines={restaurant.info.cuisines}
             cloudinaryImageId={restaurant.info.cloudinaryImageId}
             lastMileTravelString={restaurant.info.sla.lastMileTravelString}
-            user = {user}
+            user={user}
+            
           />
         ))}
       </div>
